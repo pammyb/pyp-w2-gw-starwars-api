@@ -1,12 +1,11 @@
 import responses
-
 from tests import BaseStarWarsAPITestCase
 from starwars_api.exceptions import SWAPIClientError
 from starwars_api.models import *
 
 
 class PeopleTestCase(BaseStarWarsAPITestCase):
-
+         
     @responses.activate
     def test_people_model(self):
         luke = People.get(1)
@@ -19,7 +18,7 @@ class PeopleTestCase(BaseStarWarsAPITestCase):
         self.assertEqual(luke.eye_color, 'blue')
         self.assertEqual(luke.birth_year, '19BBY')
         self.assertEqual(luke.gender, 'male')
-
+    
     @responses.activate
     def test_people_model_not_found(self):
         error = ('Request to SWAPI "/api/people/100" failed with '
@@ -50,12 +49,12 @@ class PeopleQuerySetTestCase(BaseStarWarsAPITestCase):
         obj = qs.next()
         self.assertTrue(isinstance(obj, People))
         self.assertEqual(obj.name, 'Luke Skywalker')
-
+    
     @responses.activate
     def test_people_qs_iterable(self):
         qs = People.all()
         self.assertEqual(len([elem for elem in qs]), 15)  # 10 in page1, 5 in page2
-
+    
     @responses.activate
     def test_people_qs_count(self):
         qs = People.all()
@@ -66,7 +65,7 @@ class FilmsQuerySetTestCase(BaseStarWarsAPITestCase):
     @responses.activate
     def test_films_qs_next(self):
         qs = Films.all()
-        obj = qs.next
+        obj = qs.next()
         self.assertTrue(isinstance(obj, Films))
         self.assertEqual(obj.title, 'A New Hope')
 
